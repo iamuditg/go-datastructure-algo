@@ -1,9 +1,6 @@
-package main
+package leetcode
 
-import (
-	"fmt"
-	"math"
-)
+import "math"
 
 func myAtoi(str string) int {
 	s := 0
@@ -80,8 +77,4 @@ func isDigit(c byte) bool {
 	} else {
 		return false
 	}
-}
-
-func main() {
-	fmt.Println(myAtoi("-42"))
 }
