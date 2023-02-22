@@ -1,8 +1,4 @@
-package main
-
-import (
-	"fmt"
-)
+package leetcode
 
 func threeSum(nums []int) [][]int {
 	// Get the length of the input
@@ -16,7 +12,6 @@ func threeSum(nums []int) [][]int {
 			}
 		}
 	}
-	fmt.Println(nums)
 
 	// Initialize an empty slice to store the result
 	var result [][]int
@@ -33,8 +28,6 @@ func threeSum(nums []int) [][]int {
 		j := i + 1
 		k := n - 1
 
-		fmt.Println("i,j,k", i, j, k)
-
 		// loop through all possible pairs of second and third elements
 		// using the two-pointer approach
 		for j < k {
@@ -42,18 +35,13 @@ func threeSum(nums []int) [][]int {
 			// calculate the sum of the three elements
 			sum := nums[i] + nums[j] + nums[k]
 
-			fmt.Println("i:", i, "j:", j, "k:", k, "nums[i] ", nums[i], "nums[j] ", nums[j], "nums[k] ", nums[k])
-
 			if sum == 0 {
 				// If the sum is zero, we found a valid triplet
 				result = append(result, []int{nums[i], nums[j], nums[k]})
 
-				fmt.Println("sum is zero: ", result)
 				// skip duplicates for the second and third elements
 				for j < k && nums[j] == nums[j+1] {
-					fmt.Println("inside: ", j)
 					j++
-					fmt.Println("inside: ", j)
 				}
 				for j < k && nums[k] == nums[k-1] {
 					k--
@@ -61,10 +49,7 @@ func threeSum(nums []int) [][]int {
 
 				// move the pointers to the next distinct element
 				j++
-				fmt.Println("outside", j)
 				k--
-
-				fmt.Println("i,j,k", i, j, k)
 			} else if sum < 0 {
 				// If the sum is negative, we need a larger sum,
 				// so we move the second pointer to the right
@@ -78,8 +63,4 @@ func threeSum(nums []int) [][]int {
 	}
 
 	return result
-}
-
-func main() {
-	fmt.Println(threeSum([]int{-1, 0, 1, 2, -1, -4}))
 }
