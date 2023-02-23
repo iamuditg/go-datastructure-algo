@@ -1,54 +1,31 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
-func divide(dividend int, divisor int) int {
-	// check for overflow and special case
-	if dividend == math.MinInt32 && divisor == -1 {
-		return math.MaxInt32
-	}
-	if divisor == 1 {
-		return dividend
-	}
-	if divisor == -1 {
-		return -dividend
-	}
+func lengthOfLongestSubstring(s string) int {
+	maxLen := 0
+	charMap := make(map[byte]int)
+	left := 0
 
-	// determine sign of the quotient
-	sign := 1
-	if dividend < 0 {
-		sign = -sign
-		dividend = -dividend
-	}
-	if divisor < 0 {
-		sign = -sign
-		divisor = -divisor
-	}
-
-	// Initialize variables
-	quotient := 0
-	power := 31
-
-	// find the highest power of divisor that is less thean or equal to divident
-	for dividend >= divisor {
-		if divisor<<power <= dividend {
-			quotient += 1 << power
-			dividend -= divisor << power
+	for right := 0; right < len(s); right++ {
+		char := s[right]
+		// if the current character is already in the window, move the left pointer
+		// to the right of the previous occurrence
+		if index, found := charMap[char]; found && index >= left {
+			left = index + 1
 		}
-		power -= 1
+		// update the index of the current character in the map
+		charMap[char] = right
+		fmt.Println("left: ", left, " charMap: ", charMap)
+		// update the maximum length seen so far
+		if length := right - left + 1; length > maxLen {
+			maxLen = length
+			fmt.Println("maxLength: ", maxLen)
+		}
 	}
-
-	// apply sign to quotient and return
-	if sign == -1 {
-		return -quotient
-	}
-
-	return quotient
+	return maxLen
 }
 
 func main() {
-	fmt.Println(divide(10, 3))
+	fmt.Println(lengthOfLongestSubstring("ababcabcd"))
 }

@@ -1,27 +1,27 @@
 package leetcode
 
+import "fmt"
+
 func lengthOfLongestSubstring(s string) int {
-	maxr := 0
-	m := [128]int{}
-	for i := 0; i < 128; i++ {
-		m[i] = -1
-	}
-	lastIndex := 0
-	length := 0
-	for k := 0; k < len(s); k++ {
-		if m[s[k]] >= 0 {
-			for i := lastIndex; i < m[s[k]]; i++ {
-				m[s[i]] = -1
-			}
-			length -= m[s[k]] - lastIndex
-			lastIndex = m[s[k]] + 1
-		} else {
-			length += 1
+	maxLen := 0
+	charMap := make(map[byte]int)
+	left := 0
+
+	for right := 0; right < len(s); right++ {
+		char := s[right]
+		// if the current character is already in the window, move the left pointer
+		// to the right of the previous occurrence
+		if index, found := charMap[char]; found && index >= left {
+			left = index + 1
 		}
-		m[s[k]] = k
-		if maxr < length {
-			maxr = length
+		// update the index of the current character in the map
+		charMap[char] = right
+		fmt.Println("left: ", left, " charMap: ", charMap)
+		// update the maximum length seen so far
+		if length := right - left + 1; length > maxLen {
+			maxLen = length
+			fmt.Println("maxLength: ", maxLen)
 		}
 	}
-	return maxr
+	return maxLen
 }
