@@ -1,9 +1,6 @@
-package main
+package leetcode
 
-import (
-	"fmt"
-	"math"
-)
+import "math"
 
 func divide(dividend int, divisor int) int {
 	// check for overflow and special case
@@ -47,8 +44,4 @@ func divide(dividend int, divisor int) int {
 	}
 
 	return quotient
-}
-
-func main() {
-	fmt.Println(divide(10, 3))
 }
