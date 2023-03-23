@@ -13,7 +13,7 @@ func threeSum(nums []int) [][]int {
 		}
 	}
 
-	// Initialize an empty slice to store the result
+	// Initialize an empty slices to store the result
 	var result [][]int
 
 	// loop through all possible values for the first element

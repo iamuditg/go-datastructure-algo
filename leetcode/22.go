@@ -4,7 +4,7 @@ import "fmt"
 
 // Function to generate all combination of well-formed parentheses
 func generateParenthesis(n int) []string {
-	// Initialize an empty slice to store the result
+	// Initialize an empty slices to store the result
 	result := []string{}
 
 	// call the backtrack function to generate all combination of parentheses
@@ -20,7 +20,7 @@ func backtrack(result *[]string, current string, open int, close int, max int) {
 	//generated a well-formed combination of parentheses
 	fmt.Println(current)
 	if len(current) == max*2 {
-		// append the well-formed combination of parentheses to the result slice
+		// append the well-formed combination of parentheses to the result slices
 		*result = append(*result, current)
 		// return from the function
 		return
