@@ -3,11 +3,8 @@ package main
 import "fmt"
 
 func main() {
-	// Test case 1: Input is a permutation of a palindrome
-	s1 := "Tact Coa"
-	fmt.Println(isPalindromePermutation(s1)) // Output: true
+	// Test case 1: Compressed string is smaller than original string
+	s1 := "aabbccc"
+	fmt.Println(compressString(s1)) // Output: "a2b1c5a3"
 
-	// Test case 2: Input is not a permutation of a palindrome
-	s2 := "Hello Hello"
-	fmt.Println(isPalindromePermutation(s2)) // Output: false
 }
