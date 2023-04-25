@@ -2,175 +2,98 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 type Node struct {
-	data int
-	next *Node
+	value int
+	next  *Node
 }
 
 type LinkedList struct {
 	head *Node
-	len  int
 }
 
-func (l *LinkedList) insert(value int) {
-	newNode := Node{}
-	newNode.data = value
+func (l *LinkedList) Append(value int) {
+	newNode := &Node{value: value}
+
 	if l.head == nil {
-		l.head = &newNode
-		l.len++
+		l.head = newNode
 		return
 	}
-	ptr := l.head
-	for i := 0; i < l.len; i++ {
-		if ptr.next == nil {
-			ptr.next = &newNode
-			l.len++
-			return
-		}
-		ptr = ptr.next
+
+	last := l.head
+	for last.next != nil {
+		last = last.next
 	}
+	last.next = newNode
 }
 
-func (l *LinkedList) printList() {
-	if l.len == 0 || l.len < 0 {
-		return
-	}
-	ptr := l.head
-	for i := 0; i < l.len; i++ {
-		fmt.Println(ptr.data)
-		ptr = ptr.next
-	}
-}
-
-func (l *LinkedList) insertAt(pos int, val int) {
-	if l.len < 0 {
-		return
-	}
-	newNode := Node{}
-	newNode.data = val
-	if l.len == 0 && l.head == nil {
-		l.head = &newNode
-		l.len++
-		return
-	}
-	nextNode := l.GetAt(pos)
-	if nextNode == nil {
-		return
-	}
-	newNode.next = nextNode
-	prevNode := l.GetAt(pos - 1)
-	prevNode.next = &newNode
-	l.len++
-}
-
-func (l *LinkedList) GetAt(pos int) *Node {
-	if pos < 0 || l.len <= 0 {
-		return nil
-	}
-	ptr := l.head
-	for i := 0; i < pos; i++ {
-		ptr = ptr.next
-	}
-	return ptr
-}
-
-func (l *LinkedList) Search(val int) {
-	if l.len <= 0 {
-		return
-	}
-	ptr := l.head
-	for i := 0; i < l.len; i++ {
-		if ptr.data == val {
-			fmt.Printf("search value is found %d in pos %d \n", val, i)
-		}
-		ptr = ptr.next
-	}
-}
-
-func (l *LinkedList) DeleteAt(pos int) {
-	if l.len <= 0 || pos <= 0 {
-		return
-	}
-	ptr := l.head
-	for i := 0; i < l.len; i++ {
-		if i == pos {
-			prevNode := l.GetAt(pos - 1)
-			prevNode.next = ptr.next
-			l.len--
-			return
-		}
-		ptr = ptr.next
-	}
-}
-
-func (l *LinkedList) DeleteDuplicate() {
+func (l *LinkedList) Print() {
 	if l.head == nil {
+		fmt.Println("List is empty")
 		return
 	}
-	current := l.head
-	for current != nil {
-		runner := current
-		for runner != nil && runner.next != nil {
-			if runner.next.data == current.data {
-				runner.next = runner.next.next
-				l.len--
-			} else {
-				runner = runner.next
-			}
-		}
-		current = current.next
+
+	// Collect the digits in a slice
+	digits := []string{}
+	ptr := l.head
+	for ptr != nil {
+		digits = append(digits, fmt.Sprintf("%d", ptr.value))
+		ptr = ptr.next
 	}
+
+	// Print the digits in reverse order
+	fmt.Println(strings.Join(digits, ""))
 }
 
-func (l *LinkedList) findKthToLast(k int) *Node {
-	p1, p2 := l.head, l.head
+func addReverse(n1, n2 *Node) *Node {
+	head := &Node{}
+	current := head
+	carry := 0
 
-	for i := 0; i < k-1; i++ {
-		if p2 == nil {
-			return nil
+	for n1 != nil || n2 != nil || carry > 0 {
+		sum := carry
+
+		if n1 != nil {
+			sum += n1.value
+			n1 = n1.next
 		}
-		p2 = p2.next
+
+		if n2 != nil {
+			sum += n2.value
+			n2 = n2.next
+		}
+
+		carry = sum / 10
+		sum = sum % 10
+
+		newNode := &Node{value: sum}
+		current.next = newNode
+		current = newNode
 	}
 
-	for p2.next != nil {
-		p1 = p1.next
-		p2 = p2.next
-	}
-	return p1
-}
-
-func (l *LinkedList) DeleteMidElement() {
-	if l.head == nil || l.len == 0 || l.head.next == nil {
-		return
-	}
-	slow, fast := l.head, l.head
-
-	for fast != nil && fast.next != nil {
-		fast = fast.next.next
-		slow = slow.next
-	}
-	prev := l.head
-	for prev.next != slow {
-		prev = prev.next
-	}
-	prev.next = slow.next
-	l.len--
+	return head.next
 }
 
 func main() {
-	l := LinkedList{}
-	l.insert(10)
-	l.insert(20)
-	l.insert(20)
-	l.insert(30)
-	l.insert(30)
-	l.insert(40)
-	l.DeleteDuplicate()
-	last := l.findKthToLast(4)
-	fmt.Println(last)
-	l.DeleteMidElement()
-	l.printList()
+	l1 := &LinkedList{}
+	l1.Append(7)
+	l1.Append(1)
+	l1.Append(6)
 
+	l2 := &LinkedList{}
+	l2.Append(5)
+	l2.Append(9)
+	l2.Append(2)
+
+	sum := addReverse(l1.head, l2.head)
+
+	// Print the sum
+	l1.Print()
+	fmt.Print(" + ")
+	l2.Print()
+	fmt.Print(" = ")
+	sumList := &LinkedList{head: sum}
+	sumList.Print()
 }
