@@ -13,7 +13,17 @@ func main() {
 	//fmt.Println(sumOfDigit(12345))
 	//fmt.Println(multiplication(4, 3))
 	//fmt.Println(countZeros(102030))
-	fmt.Println(geometricSum(3))
+	//fmt.Println(geometricSum(3))
+	//a := []int{1, 2, 3, 4, 5, 4, 8}
+	//fmt.Println(checkArraySorted(a, len(a)))
+	//fmt.Println(sumOfArray(a, len(a)))
+	//fmt.Println(checkIfPresent(a, len(a), 8))
+	//fmt.Println(firstIndexOfElement(a, len(a), 0, 4))
+	//fmt.Println(lastIndexOfElement(a, len(a)-1, 0, 4))
+	//printAllPosition(a, len(a)-1, 4)
+	//fmt.Println(storeAllPosition(a, len(a)-1, 4, []int{}))
+	str := "abvmba"
+	fmt.Println(checkPalindrome(str, 0, len(str)-1))
 }
 
 func geometricSum(k int) float64 {
