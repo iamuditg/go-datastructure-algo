@@ -1,41 +1,55 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+	"log"
+)
 
-type stack []string
-
-// IsEmpty Check if Stack is Empty
-func (s *stack) IsEmpty() bool {
-	return len(*s) == 0
+type Stack struct {
+	data []interface{}
 }
 
-// Push a new value onto the stack
-func (s *stack) Push(str string) {
-	*s = append(*s, str) // Simply append the new value to the end of the stack
+func NewStack() *Stack {
+	return &Stack{data: make([]interface{}, 0)}
 }
 
-// Pop Remove and return top element of stack. Return false if stack is empty
-func (s *stack) Pop() (string, bool) {
-	if s.IsEmpty() {
-		return "", false
-	} else {
-		index := len(*s) - 1   // Get the index of the top most element
-		element := (*s)[index] //Index into the slices and obtain the element
-		*s = (*s)[:index]      // Remove it from the stack by slicing it off
-		return element, true
+func (s *Stack) push(item interface{}) {
+	s.data = append(s.data, item)
+}
+
+func (s *Stack) pop() (interface{}, error) {
+	if len(s.data) == 0 {
+		return nil, errors.New("stack is empty")
 	}
+	item := s.data[len(s.data)-1]
+	s.data = s.data[:len(s.data)-1]
+	return item, nil
+}
+
+func (s *Stack) peek() (interface{}, error) {
+	if len(s.data) == 0 {
+		return nil, errors.New("stack is empty")
+	}
+	return s.data[len(s.data)-1], nil
 }
 
 func main() {
-	var stack stack
-	stack.Push("this")
-	stack.Push("is")
-	stack.Push("sparta!")
+	stack := NewStack()
+	stack.push(10)
+	stack.push(20)
+	stack.push(30)
+	stack.push(40)
 
-	for len(stack) > 0 {
-		x, y := stack.Pop()
-		if y == true {
-			fmt.Println(x)
-		}
+	pop, err := stack.pop()
+	if err != nil {
+		log.Fatal(err)
 	}
+	fmt.Println(pop)
+
+	peek, err := stack.peek()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(peek)
 }

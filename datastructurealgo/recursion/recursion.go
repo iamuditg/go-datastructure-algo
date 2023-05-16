@@ -22,8 +22,14 @@ func main() {
 	//fmt.Println(lastIndexOfElement(a, len(a)-1, 0, 4))
 	//printAllPosition(a, len(a)-1, 4)
 	//fmt.Println(storeAllPosition(a, len(a)-1, 4, []int{}))
-	str := "abvmba"
-	fmt.Println(checkPalindrome(str, 0, len(str)-1))
+	//str := "abvsd"
+	//fmt.Println(checkPalindrome(str, 0, len(str)-1))
+	//printReverse(str, len(str)-1)
+	//fmt.Println(findLength(a))
+	r := "abc"
+	//fmt.Println(replaceCharacter(r, "a"))
+	//fmt.Println(removeCharacter(r, "a"))
+	fmt.Println(removeConsecutiveDuplicates(r))
 }
 
 func geometricSum(k int) float64 {
