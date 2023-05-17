@@ -20,9 +20,17 @@ func main() {
 	//reversed := ReverseWords(str)
 	//fmt.Println("Reversed words:", reversed)
 
-	str1 := "Listenk"
-	str2 := "Silentk"
-	isAnagram := IsAnagram(str1, str2)
-	fmt.Println("Are the strings anagrams?", isAnagram)
+	//str1 := "Listenk"
+	//str2 := "Silentk"
+	//isAnagram := IsAnagram(str1, str2)
+	//fmt.Println("Are the strings anagrams?", isAnagram)
+
+	//str := "abcabcbabcd"
+	//length := LengthOfLongestSubstring(str)
+	//fmt.Println("Length of the longest substring:", length)
+
+	str := "Hello World, how are you?"
+	reversed := ReverseEachWords(str)
+	fmt.Println("Reversed words:", reversed)
 
 }
