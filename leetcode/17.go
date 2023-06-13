@@ -1,13 +1,10 @@
-package main
-
-import "fmt"
+package leetcode
 
 func letterCombinations(digits string) []string {
 	var result []string
 	if digits == "" {
 		return result
 	}
-
 	dict := map[byte]string{
 		'2': "abc",
 		'3': "def",
@@ -22,24 +19,15 @@ func letterCombinations(digits string) []string {
 	result = []string{""}
 
 	for i := range digits {
-		st := dict[digits[i]]
-		fmt.Println("st:", string(st))
+		searchDict := dict[digits[i]]
 		var next []string
-		for j := range st {
-			c := st[j]
-			fmt.Println("c: ", string(c))
+		for j := range searchDict {
+			word := searchDict[j]
 			for _, r := range result {
-				fmt.Println("r:", string(r))
-				next = append(next, r+string(c))
-				fmt.Println("next: ", next)
+				next = append(next, r+string(word))
 			}
 		}
 		result = next
-		fmt.Println("result:", result)
 	}
 	return result
-}
-
-func main() {
-	fmt.Println(letterCombinations("23"))
 }
