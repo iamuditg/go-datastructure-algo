@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package leetcode
 
 func removeStars(s string) string {
 	str := []byte{}
@@ -15,8 +13,4 @@ func removeStars(s string) string {
 		}
 	}
 	return string(str)
-}
-
-func main() {
-	fmt.Println(removeStars("aab**bc*d"))
 }
