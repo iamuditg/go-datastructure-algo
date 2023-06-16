@@ -1,3 +1,5 @@
+<img src="datastructure.jpg" />
+
 # go-datastructurealgo
 
 Welcome to the go-datastructurealgo project! This repository contains resources related to data structures, algorithms, interview solutions, and LeetCode problem solving.
