@@ -62,6 +62,44 @@ func (ll *LinkedList) PrintLinkedList() {
 	fmt.Println()
 }
 
+// DeleteElementAt deletes the element at the specified index position in the linked list
+func (ll *LinkedList) DeleteElementAt(index int) {
+	if index < 0 || index >= ll.size {
+		fmt.Println("Invalid index position")
+		return
+	}
+
+	if index == 0 {
+		ll.head = ll.head.next
+	} else {
+		current := ll.head
+		for i := 0; i < index-1; i++ {
+			current = current.next
+		}
+		current.next = current.next.next
+	}
+	ll.size--
+}
+
+// DeleteAllElements deletes all elements in the linked list
+func (ll *LinkedList) DeleteAllElements() {
+	ll.head = nil
+	ll.size = 0
+}
+
+// ReverseLinkedList reverse the linked list
+func (ll *LinkedList) ReverseLinkedList() {
+	var prev *ListNode = nil
+	current := ll.head
+	for current != nil {
+		next := current.next
+		current.next = prev
+		prev = current
+		current = next
+	}
+	ll.head = prev
+}
+
 func main() {
 	list := &LinkedList{}
 	// Insert element in Linked list
@@ -73,6 +111,18 @@ func main() {
 
 	// InsertAt
 	list.InsertElementAt(8, 2)
+
+	// Print Linked List
+	list.PrintLinkedList()
+
+	// DeleteAt
+	list.DeleteElementAt(2)
+
+	// Print Linked List
+	list.PrintLinkedList()
+
+	// Reverse
+	list.ReverseLinkedList()
 
 	// Print Linked List
 	list.PrintLinkedList()
