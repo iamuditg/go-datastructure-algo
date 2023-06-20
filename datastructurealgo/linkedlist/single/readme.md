@@ -1,6 +1,6 @@
 # Singly Linked List
 
-A singly linked list is a data structure that consists of a sequence of nodes. Each node contains data and a reference (link) to the next node in the sequence.
+A singly linked list is a data structure that consists of a sequence of nodes. Each node contains data and a reference (link) to the next node in the sequence. It provides an efficient way to store and manipulate a collection of elements.
 
 ## Implementation Details
 
@@ -15,6 +15,28 @@ The provided Go code implements a singly linked list with the following function
 7. `MergeSort()` - Sorts the linked list in ascending order using the merge sort algorithm.
 8. `SearchElement(value int)` - Searches for an element in the linked list and returns true if found, false otherwise.
 9. `MiddleElement()` - Returns the middle element of the linked list.
+
+![Singly Linked List Diagram](linkedlist.png)
+
+The `LinkedList` struct consists of a `head` node, which points to the first element of the list, and a `size` field that keeps track of the number of elements in the list. Each node in the linked list has a `value` field to store the element value and a `next` field to reference the next node.
+
+The `InsertElement()` function adds a new element at the end of the list by creating a new node and updating the `next` reference of the last node to point to the new node.
+
+The `InsertAt()` function inserts an element at the specified index by traversing the list to the previous node of the target index, creating a new node, and updating the references to include the new node.
+
+The `DeleteAt()` function removes the element at the specified index by updating the references of the previous and next nodes to bypass the node to be deleted.
+
+The `DeleteAll()` function removes all elements from the list by setting the `head` node to nil and resetting the `size` to 0.
+
+The `ReverseLinkedList()` function reverses the order of elements in the linked list by modifying the `next` references of each node to reverse the direction.
+
+The `MergeSorted()` function merges the current linked list with another linked list in sorted order by comparing the values of the nodes and adjusting the references accordingly.
+
+The `MergeSort()` function uses the merge sort algorithm to sort the linked list in ascending order by recursively dividing the list into smaller sublists, sorting them individually, and merging them back together.
+
+The `SearchElement()` function searches for an element in the linked list by traversing the list and comparing the values until a match is found or the end of the list is reached.
+
+The `MiddleElement()` function finds the middle element of the linked list using the "slow and fast pointer" technique, where the slow pointer moves one step at a time and the fast pointer moves two steps at a time until the fast pointer reaches the end of the list.
 
 ## Usage
 

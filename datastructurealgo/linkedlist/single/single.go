@@ -52,16 +52,6 @@ func (ll *LinkedList) InsertElementAt(value, index int) {
 	ll.size++
 }
 
-// PrintLinkedList prints the elements of the linked list
-func (ll *LinkedList) PrintLinkedList() {
-	current := ll.head
-	for current != nil {
-		fmt.Println(current.value, " ")
-		current = current.next
-	}
-	fmt.Println()
-}
-
 // DeleteElementAt deletes the element at the specified index position in the linked list
 func (ll *LinkedList) DeleteElementAt(index int) {
 	if index < 0 || index >= ll.size {
@@ -100,31 +90,129 @@ func (ll *LinkedList) ReverseLinkedList() {
 	ll.head = prev
 }
 
+// MergeSortedLinkedList merges two sorted linked lists into a single sorted linked list
+func MergeSortedLinkedList(list1, list2 *ListNode) *ListNode {
+	dummy := &ListNode{}
+	current := dummy
+
+	for list1 != nil && list2 != nil {
+		if list1.value <= list2.value {
+			current.next = list1
+			list1 = list1.next
+		} else {
+			current.next = list2
+			list2 = list2.next
+		}
+		current = current.next
+	}
+
+	if list1 != nil {
+		current.next = list1
+	} else {
+		current.next = list2
+	}
+
+	return dummy.next
+}
+
+// SearchElement searches for a given element in the linked list and returns true if found, false otherwise
+func (ll *LinkedList) SearchElement(value int) bool {
+	current := ll.head
+	for current != nil {
+		if current.value == value {
+			return true
+		}
+		current = current.next
+	}
+	return false
+}
+
+// MiddleElement returns the middle element of the linked list
+func (ll *LinkedList) MiddleElement() *ListNode {
+	slow := ll.head
+	fast := ll.head
+
+	for fast != nil && fast.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+	}
+	return slow
+}
+
+// PrintLinkedList prints the elements of the linked list
+func (ll *LinkedList) PrintLinkedList() {
+	current := ll.head
+	for current != nil {
+		fmt.Println(current.value, " ")
+		current = current.next
+	}
+	fmt.Println()
+}
+
 func main() {
-	list := &LinkedList{}
-	// Insert element in Linked list
-	list.InsertElement(3)
-	list.InsertElement(4)
-	list.InsertElement(5)
-	list.InsertElement(6)
-	list.InsertElement(7)
+	// Create a new linked list
+	ll := LinkedList{}
 
-	// InsertAt
-	list.InsertElementAt(8, 2)
+	// Insert elements
+	ll.InsertElement(1)
+	ll.InsertElement(2)
+	ll.InsertElement(3)
+	ll.InsertElement(4)
+	ll.InsertElement(5)
 
-	// Print Linked List
-	list.PrintLinkedList()
+	// Print the linked list
+	fmt.Println("Linked List:")
+	ll.PrintLinkedList() // Output: 1 2 3 4 5
 
-	// DeleteAt
-	list.DeleteElementAt(2)
+	// Insert element at index
+	ll.InsertElementAt(10, 2)
 
-	// Print Linked List
-	list.PrintLinkedList()
+	// Print the modified linked list
+	fmt.Println("Modified Linked List:")
+	ll.PrintLinkedList() // Output: 1 2 10 3 4 5
 
-	// Reverse
-	list.ReverseLinkedList()
+	// Delete element at index
+	ll.DeleteElementAt(3)
 
-	// Print Linked List
-	list.PrintLinkedList()
+	// Print the modified linked list
+	fmt.Println("Modified Linked List:")
+	ll.PrintLinkedList() // Output: 1 2 10 4 5
 
+	// Reverse the linked list
+	ll.ReverseLinkedList()
+
+	// Print the reversed linked list
+	fmt.Println("Reversed Linked List:")
+	ll.PrintLinkedList() // Output: 5 4 10 2 1
+
+	// Create another linked list
+	ll2 := LinkedList{}
+
+	// Insert elements
+	ll2.InsertElement(3)
+	ll2.InsertElement(6)
+	ll2.InsertElement(9)
+
+	// Print the second linked list
+	fmt.Println("Second Linked List:")
+	ll2.PrintLinkedList() // Output: 3 6 9
+
+	// Merge the two linked lists in sorted order
+	merged := MergeSortedLinkedList(ll.head, ll2.head)
+
+	// Print the merged linked list
+	fmt.Println("Merged Linked List:")
+	for merged != nil {
+		fmt.Print(merged.value, " ")
+		merged = merged.next
+	}
+	fmt.Println() // Output: 1 2 3 4 5 6 9
+
+	// Search for an element in the linked list
+	fmt.Println("Search Result:", ll.SearchElement(4)) // Output: true
+	fmt.Println("Search Result:", ll.SearchElement(7)) // Output: false
+
+	// Get the middle element of the linked list
+	middle := ll.MiddleElement()
+	fmt.Println("Middle Element:", middle.value) // Output: 10
 }
