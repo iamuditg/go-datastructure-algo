@@ -1,68 +1,67 @@
 # Stack using Linked List
 
-A stack is a linear data structure that follows the Last-In-First-Out (LIFO) principle. It can be implemented using a linked list.
+A stack is a linear data structure that follows the Last-In-First-Out (LIFO) principle. This implementation of a stack uses a linked list as the underlying data structure.
 
 ## Implementation Details
 
-The provided Go code implements a stack using a linked list with the following functionalities:
+The stack is implemented using a singly linked list, where each node contains a value and a reference to the next node. The stack keeps track of the start (first element) and top (last element) of the linked list, allowing for efficient push and pop operations.
 
-1. `Push(value int)` - Pushes an element onto the stack.
-2. `Pop() (int, error)` - Pops the top element from the stack and returns it. Returns an error if the stack is empty.
-3. `Peek() (int, error)` - Returns the top element of the stack without removing it. Returns an error if the stack is empty.
-4. `IsEmpty() bool` - Checks if the stack is empty and returns a boolean value.
-5. `Size() int` - Returns the number of elements in the stack.
+![Stack LinkedList](img.png)
 
-![Stack linkedlist Diagram](img.png)
+### Structure
 
-## Internal Implementation
+- `Node`: Represents a node in the linked list, containing a value and a reference to the next node.
+- `Stack`: Represents the stack, with pointers to the start and top of the linked list, and a size counter.
 
-The stack is implemented using two structs: `Node` and `Stack`.
+### Approach
 
-- `Node` represents a node in the linked list and has two fields:
-    - `value` - the value of the node.
-    - `next` - a pointer to the next node in the linked list.
+1. **Push Operation**: When pushing an element onto the stack, a new node is created with the given value. If the stack is empty, the start and top pointers are set to the new node. Otherwise, the new node is added at the top of the stack, and the top pointer is updated.
 
-- `Stack` represents the stack and has two fields:
-    - `top` - a pointer to the top node of the stack.
-    - `size` - the number of elements in the stack.
+2. **Pop Operation**: When popping an element from the stack, the top element is removed. If the stack becomes empty after the pop, the start and top pointers are set to nil. Otherwise, the top pointer is moved to the previous node.
 
-The stack provides methods to perform various operations, such as pushing, popping, peeking, checking emptiness, and getting the size.
+3. **Print Operation**: The print operation traverses the linked list from start to end and prints the value of each node.
 
-## Usage
+4. **Peek Operation**: The peek operation returns the value of the top element without removing it.
 
-To use the stack, create a new instance of `Stack` using the `NewStack` function. You can then call the methods provided by the `Stack` struct to perform operations on the stack.
+5. **MidElement Operation**: The midElement operation returns the value of the middle element in the stack. To find the middle element, the stack's size is used to calculate the index of the middle node. The linked list is then traversed until the middle node is reached.
 
-Here's an example usage:
+## Usage Example
 
 ```go
 package main
 
 import (
-	"errors"
 	"fmt"
 )
-
-// ... (stack implementation)
 
 func main() {
 	stack := NewStack()
 
-	// Push elements onto the stack
-	stack.Push(5)
 	stack.Push(10)
-	stack.Push(3)
+	stack.Push(20)
+	stack.Push(30)
+	stack.Push(40)
 
-	// Pop elements from the stack
-	value, _ := stack.Pop()
-	fmt.Println("Popped Value:", value)
+	stack.Print() // Output: 10 20 30 40
 
-	// Peek at the top element of the stack
-	value, _ = stack.Peek()
-	fmt.Println("Top Value:", value)
+	value, err := stack.Pop()
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Popped value:", value) // Output: Popped value: 40
+	}
 
-	// Check if the stack is empty
-	fmt.Println("Is Empty:", stack.IsEmpty())
+	value, err = stack.Peek()
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Top value:", value) // Output: Top value: 30
+	}
 
-	// Get the size of the stack
-	fmt.Println("Size:", stack.Size())
+	midValue, err := stack.MidElement()
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Middle value:", midValue) // Output: Middle value: 20
+	}
 }
