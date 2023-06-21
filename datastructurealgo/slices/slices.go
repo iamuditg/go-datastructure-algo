@@ -19,19 +19,18 @@ func NewSlice(cap int) *Slice {
 
 func (s *Slice) Append(val int) {
 	if s.len == s.cap {
-		newPtr := make([]int, s.cap*2)
+		newCap := s.cap * 2
+		newPtr := make([]int, newCap)
 		copy(newPtr, *s.ptr)
-		fmt.Println(newPtr, *s.ptr)
 		*s.ptr = append((*s.ptr)[:s.len], newPtr[s.len:]...)
-		fmt.Println(newPtr, *s.ptr)
-		s.cap *= 2
+		s.cap = newCap
 	}
 	(*s.ptr)[s.len] = val
 	s.len++
 }
 
 func (s *Slice) Print() {
-	fmt.Printf("len =v%d cap = %d %v\n", s.len, s.cap, (*s.ptr)[:s.len])
+	fmt.Printf("len = %d cap = %d %v\n", s.len, s.cap, (*s.ptr)[:s.len])
 }
 
 func main() {
