@@ -1,67 +1,37 @@
-# Generic Tree Implementation
+# Generic Tree
 
-This is an implementation of a generic tree data structure in Go. The tree supports various operations such as insertion, printing, deletion, calculating height, printing all nodes, and counting the number of nodes.
+This is an implementation of a generic tree data structure in Go. The program allows users to input a tree, perform various operations on it, and display the results. The supported operations include:
 
-## Implementation Details
+1. Insertion of the tree
+2. Printing the tree in level order, pre-order, and post-order traversal
+3. Computing the depth of the tree
+4. Counting the number of nodes in the tree
+5. Counting the number of leaf nodes in the tree
+6. Deleting a node from the tree
+7. Searching for a node in the tree
 
-The generic tree is represented using the following components:
+## Tree Traversals
 
-- **Node:** The `Node` struct represents a node in the tree. It contains a value and a slice of child nodes.
+- Level Order Traversal: This traversal visits the nodes of the tree level by level, starting from the root node and moving down to the deepest level. It prints the data of each node in level order.
+- Pre-order Traversal: This traversal visits the nodes of the tree in the order of root, left child, and right child. It prints the data of each node in pre-order.
+- Post-order Traversal: This traversal visits the nodes of the tree in the order of left child, right child, and root. It prints the data of each node in post-order.
 
-- **Tree:** The `Tree` struct represents the generic tree. It contains a root node and provides methods for tree operations.
+## Function Descriptions
 
-The following operations are implemented in the tree:
-
-1. **Insert:** The `Insert` method is used to insert a value into the tree. It takes a value and an optional parent node. If the parent node is `nil`, the value is inserted as the root of the tree. Otherwise, it is added as a child node to the parent.
-
-2. **Print:** The tree supports four print methods: `PreOrder`, `InOrder`, `PostOrder`, and `LevelOrder`. These methods traverse the tree in different orders and print the values of the nodes.
-
-3. **Delete:** The `Delete` method is used to delete a node from the tree. It takes a value as input and deletes the node with the matching value from the tree. If the node has children, they are also deleted.
-
-4. **Height:** The `Height` method calculates the height of the tree. It returns the maximum number of levels in the tree.
-
-5. **Print All Nodes:** The `PrintAllNodes` method prints all the nodes in the tree. It uses in-order traversal to visit the nodes.
-
-6. **Count:** The `Count` method returns the total number of nodes in the tree.
+- `InsertTree()`: Prompts the user to enter the tree data, including the root node and its children, and returns the constructed tree.
+- `LevelOrderTraversal(root *Node)`: Prints the tree in level order traversal.
+- `PreOrderTraversal(root *Node)`: Prints the tree in pre-order traversal.
+- `PostOrderTraversal(root *Node)`: Prints the tree in post-order traversal.
+- `Depth(root *Node)`: Computes and returns the depth of the tree.
+- `CountNodes(root *Node)`: Counts and returns the number of nodes in the tree.
+- `CountLeafNodes(root *Node)`: Counts and returns the number of leaf nodes in the tree.
+- `DeleteNode(root *Node, data string) bool`: Deletes the node with the specified data from the tree and returns true if the deletion is successful.
+- `SearchNode(root *Node, data string) *Node`: Searches for a node with the specified data in the tree and returns the node if found, otherwise returns nil.
 
 ## Usage
 
-To use the generic tree implementation, follow these steps:
+1. Run the program.
+2. Follow the instructions to input the tree data.
+3. View the results of various operations on the tree.
 
-1. Create a new tree using the `NewTree` function.
-
-2. Insert nodes into the tree using the `Insert` method.
-
-3. Perform tree operations such as printing, deletion, calculating height, printing all nodes, or counting the number of nodes.
-
-Here's an example of using the generic tree implementation:
-
-```go
-tree := NewTree()
-
-// Insert nodes into the tree
-tree.Insert("A", nil)
-tree.Insert("B", tree.root)
-tree.Insert("C", tree.root)
-tree.Insert("D", tree.root.children[0])
-tree.Insert("E", tree.root.children[0])
-tree.Insert("F", tree.root.children[1])
-tree.Insert("G", tree.root.children[2])
-
-// Print the tree using different traversal methods
-tree.PreOrder(tree.root)
-tree.InOrder(tree.root)
-tree.PostOrder(tree.root)
-tree.LevelOrder()
-
-// Calculate the height of the tree
-tree.Height()
-
-// Print all nodes in the tree
-tree.PrintAllNodes()
-
-// Count the total number of nodes in the tree
-tree.Count()
-
-// Delete a node from the tree
-tree.Delete("D")
+Enjoy exploring the generic tree implementation!
