@@ -1,9 +1,8 @@
-// CODE EXAMPLE VALID FOR COMPILING
-package main
+package leetcode
 
 import (
-	"fmt"
 	"math"
+	"testing"
 )
 
 func myAtoi(str string) int {
@@ -83,6 +82,27 @@ func isDigit(digit byte) bool {
 	}
 }
 
-func main() {
-	fmt.Println(myAtoi("   -42"))
+// TestMyAtoi tests the myAtoi function with various inputs.
+func TestMyAtoi(t *testing.T) {
+	testCases := []struct {
+		input    string
+		expected int
+	}{
+		{"42", 42},
+		{"   -42", -42},
+	}
+
+	for _, tc := range testCases {
+		result := myAtoi(tc.input)
+		if result != tc.expected {
+			t.Errorf("Input: %s, Expected: %d, Got: %d", tc.input, tc.expected, result)
+		}
+	}
+}
+
+// BenchmarkMyAtoi benchmarks the myAtoi function.
+func BenchmarkMyAtoi(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		myAtoi("42")
+	}
 }
