@@ -1,88 +1,39 @@
 // CODE EXAMPLE VALID FOR COMPILING
 package main
 
-import (
-	"fmt"
-	"math"
-)
-
-func myAtoi(str string) int {
-
-	s := 0
-	// check str contains only numeric value
-	for s = 0; s < len(str); s++ {
-		if !isDigitOrSignValue(str[s]) {
-			return 0
-		}
-
-		if isSignValue(str[s]) {
-			break
-		}
+func letterCombination(digits string) []string {
+	if digits == "" {
+		return []string{}
 	}
 
-	var position bool
-	if str[s] == '-' {
-		position = false
-		s++
-	} else if str[s] == '+' {
-		position = true
-		s++
-	} else {
-		position = true
+	dict := map[byte]string{
+		'2': "abc",
+		'3': "def",
+		'4': "ghi",
+		'5': "jkl",
+		'6': "mno",
+		'7': "pqrs",
+		'8': "tuv",
+		'9': "wxyz",
 	}
 
-	result := 0
-
-	for ; s < len(str); s++ {
-		if !isDigit(str[s]) {
-			return result
-		}
-		value := int(str[s]) - '0'
-		if !position {
-			value = -value
-		}
-
-		nextValue := result*10 + value
-
-		if nextValue > math.MaxInt32 || nextValue < math.MinInt32 || (nextValue-value)/10 != result {
-			if position {
-				return math.MaxInt32
-			} else {
-				return math.MinInt32
-			}
-		}
-
-		result = nextValue
-
-	}
-
+	var result []string
+	backtrack(digits, 0, "", dict, &result)
 	return result
 }
 
-func isDigitOrSignValue(digit byte) bool {
-	if isSignValue(digit) || digit == ' ' {
-		return true
-	} else {
-		return false
+func backtrack(digits string, index int, combination string, dict map[byte]string, result *[]string) {
+	if index == len(digits) {
+		*result = append(*result, combination)
+		return
 	}
-}
 
-func isSignValue(digit byte) bool {
-	if isDigit(digit) || digit == '+' || digit == '-' {
-		return true
-	} else {
-		return false
-	}
-}
-
-func isDigit(digit byte) bool {
-	if digit >= '0' && digit <= '9' {
-		return true
-	} else {
-		return false
+	letters := dict[digits[index]]
+	for i := 0; i < len(letters); i++ {
+		backtrack(digits, index, combination+string(letters[i]), dict, result)
 	}
 }
 
 func main() {
-	fmt.Println(myAtoi("   -42"))
+
 }
