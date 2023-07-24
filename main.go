@@ -1,7 +1,9 @@
 // CODE EXAMPLE VALID FOR COMPILING
 package main
 
-func letterCombination(digits string) []string {
+import "fmt"
+
+func letterCombinations(digits string) []string {
 	if digits == "" {
 		return []string{}
 	}
@@ -30,10 +32,10 @@ func backtrack(digits string, index int, combination string, dict map[byte]strin
 
 	letters := dict[digits[index]]
 	for i := 0; i < len(letters); i++ {
-		backtrack(digits, index, combination+string(letters[i]), dict, result)
+		backtrack(digits, index+1, combination+string(letters[i]), dict, result)
 	}
 }
 
 func main() {
-
+	fmt.Println(letterCombinations("23"))
 }
