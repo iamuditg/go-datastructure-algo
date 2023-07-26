@@ -1,10 +1,7 @@
 package leetcode
 
 func letterCombinations(digits string) []string {
-	var result []string
-	if digits == "" {
-		return result
-	}
+
 	dict := map[byte]string{
 		'2': "abc",
 		'3': "def",
@@ -16,18 +13,24 @@ func letterCombinations(digits string) []string {
 		'9': "wxyz",
 	}
 
-	result = []string{""}
-
-	for i := range digits {
-		searchDict := dict[digits[i]]
-		var next []string
-		for j := range searchDict {
-			word := searchDict[j]
-			for _, r := range result {
-				next = append(next, r+string(word))
-			}
-		}
-		result = next
+	if len(digits) == 0 {
+		return []string{}
 	}
+	var result []string
+	solveCombination(digits, 0, "", &result, dict)
 	return result
+}
+
+func solveCombination(digits string, index int, combination string, result *[]string, dict map[byte]string) {
+	if index == len(digits) {
+		*result = append(*result, combination)
+		return
+	}
+
+	digit := digits[index]
+	letter := dict[digit]
+
+	for i := 0; i < len(letter); i++ {
+		solveCombination(digits, index+1, combination+string(letter[i]), result, dict)
+	}
 }
